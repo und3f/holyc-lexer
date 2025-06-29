@@ -78,15 +78,11 @@ export class SyntaxLexer {
   }
 
   getStr(start: number, end: number): string {
-    return this._code.substring(start, end + 1)
+    return this._code.substring(start, end)
   }
 
   getPos(): number {
     return this._pos
-  }
-
-  getPrevPos(): number {
-    return this.getPos() - 1
   }
 
   private parseIdent() {
@@ -100,8 +96,8 @@ export class SyntaxLexer {
       this.next()
     }
 
-    const end = this.getPrevPos()
-    const token = findTokenType(this.getStr(start, this.getPrevPos()))
+    const end = this.getPos()
+    const token = findTokenType(this.getStr(start, end))
 
     if (token != SyntaxTokenType.TK_UNKNOWN_SYMBOL) {
       this._tokens.push({
@@ -135,7 +131,7 @@ export class SyntaxLexer {
       this.next()
     }
 
-    const end = this.getPrevPos()
+    const end = this.getPos()
     this._tokens.push({
       token: SyntaxTokenType.TK_COMMENT,
       start,
@@ -153,7 +149,7 @@ export class SyntaxLexer {
       prev = ch
     }
 
-    const end = this.getPrevPos()
+    const end = this.getPos()
     this._tokens.push({
       token: SyntaxTokenType.TK_COMMENT,
       start,
@@ -179,7 +175,7 @@ export class SyntaxLexer {
       }
     }
 
-    const end = this.getPrevPos()
+    const end = this.getPos()
     this._tokens.push({
       token: tokenType,
       start,
@@ -192,7 +188,7 @@ function findTokenType(sym: string): SyntaxTokenType {
   for (const [type, symbolsSet] of Object.entries(keywords)) {
     if (symbolsSet.has(sym)) {
       const token =
-        KeywordNameToTokenType[type] || SyntaxTokenType.TK_UNKNOWN_SYMBOL
+        KeywordNameToTokenType[type] ?? SyntaxTokenType.TK_UNKNOWN_SYMBOL
       return token
     }
   }
@@ -207,9 +203,8 @@ function isIdentStart(ch: number): boolean {
   return (
     (ch >= SYM_a && ch <= SYM_z) ||
     (ch >= SYM_A && ch <= SYM_Z) ||
-    ch == SYM_UNDERSCORE ||
-    (ch >= 128 && ch <= 255)
-  ) // TODO: TempleOS-specific charset
+    ch == SYM_UNDERSCORE
+  )
 }
 
 function isNumeric(ch: number): boolean {

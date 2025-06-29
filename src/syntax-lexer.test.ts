@@ -5,8 +5,16 @@ describe('SyntaxLexer', () => {
     const code = 'I64 variable = RandI64() + 456;'
 
     expect(new SyntaxLexer(code).lex()).toEqual([
-      { token: SyntaxTokenType.TK_CLASS, start: 0, end: 2 },
-      { token: SyntaxTokenType.TK_FUN, start: 15, end: 21 },
+      { token: SyntaxTokenType.TK_CLASS, start: 0, end: 3 },
+      { token: SyntaxTokenType.TK_FUN, start: 15, end: 22 },
+    ])
+  })
+
+  it('should tokenize correctly export symbol correctly', () => {
+    const code = '_HASH_FIND'
+
+    expect(new SyntaxLexer(code).lex()).toEqual([
+      { token: SyntaxTokenType.TK_EXPORT_SYS_SYM, start: 0, end: 10 },
     ])
   })
 
@@ -14,7 +22,7 @@ describe('SyntaxLexer', () => {
     const code = '"Hello, world!";'
 
     expect(new SyntaxLexer(code).lex()).toEqual([
-      { token: SyntaxTokenType.TK_STRING, start: 0, end: 14 },
+      { token: SyntaxTokenType.TK_STRING, start: 0, end: 15 },
     ])
   })
 
@@ -22,7 +30,7 @@ describe('SyntaxLexer', () => {
     const code = '"\\"";'
 
     expect(new SyntaxLexer(code).lex()).toEqual([
-      { token: SyntaxTokenType.TK_STRING, start: 0, end: 3 },
+      { token: SyntaxTokenType.TK_STRING, start: 0, end: 4 },
     ])
   })
 
@@ -30,7 +38,7 @@ describe('SyntaxLexer', () => {
     const code = `'a\\''`
 
     expect(new SyntaxLexer(code).lex()).toEqual([
-      { token: SyntaxTokenType.TK_STRING, start: 0, end: 4 },
+      { token: SyntaxTokenType.TK_STRING, start: 0, end: 5 },
     ])
   })
 
@@ -38,7 +46,7 @@ describe('SyntaxLexer', () => {
     const code = '// C-style comment'
 
     expect(new SyntaxLexer(code).lex()).toEqual([
-      { token: SyntaxTokenType.TK_COMMENT, start: 0, end: 17 },
+      { token: SyntaxTokenType.TK_COMMENT, start: 0, end: 18 },
     ])
   })
 
@@ -46,8 +54,8 @@ describe('SyntaxLexer', () => {
     const code = '// C-style comment\n// Second comment'
 
     expect(new SyntaxLexer(code).lex()).toEqual([
-      { token: SyntaxTokenType.TK_COMMENT, start: 0, end: 17 },
-      { token: SyntaxTokenType.TK_COMMENT, start: 19, end: 35 },
+      { token: SyntaxTokenType.TK_COMMENT, start: 0, end: 18 },
+      { token: SyntaxTokenType.TK_COMMENT, start: 19, end: 36 },
     ])
   })
 
@@ -55,7 +63,7 @@ describe('SyntaxLexer', () => {
     const code = '/* C++ style\n * multiline\n * comment */\n'
 
     expect(new SyntaxLexer(code).lex()).toEqual([
-      { token: SyntaxTokenType.TK_COMMENT, start: 0, end: code.length - 2 },
+      { token: SyntaxTokenType.TK_COMMENT, start: 0, end: code.length - 1 },
     ])
   })
 })

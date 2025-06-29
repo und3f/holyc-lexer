@@ -16,5 +16,9 @@ npm install holyc-lexer
 new SyntaxLexer(code).lex()
 ```
 
-Returns array of `SyntaxToken`s for recognized syntax structures. Each token
-has start, end positions, and type of token (function, string, etc.).
+Returns array of `SyntaxToken`s for recognized parts. See `SyntaxToken`.
+
+### SyntaxToken
+
+Contains information about token type (see `SyntaxTokenType`) and position of
+the token (excluding end position, similar to `substring` format).
