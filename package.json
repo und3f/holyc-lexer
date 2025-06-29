@@ -2,6 +2,7 @@
   "name": "holyc-lexer",
   "version": "0.1.1",
   "description": "HolyC Syntax Highlight Lexer",
+  "homepage": "https://github.com/und3f/holyc-lexer",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
