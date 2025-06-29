@@ -1,0 +1,26 @@
+{
+  "name": "holyc-lex",
+  "version": "0.1.0",
+  "description": "HolyC Lexer",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "format": "npx prettier ./ --write"
+  },
+  "keywords": [
+    "holyc",
+    "lexer"
+  ],
+  "author": "Serhii Zasenko <sergii@zasenko.name>",
+  "license": "MPL-2.0",
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.0.3",
+    "jest": "^29.7.0",
+    "prettier": "3.6.0",
+    "ts-jest": "^29.4.0",
+    "typescript": "^5.8.3"
+  }
+}

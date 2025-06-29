@@ -1,0 +1,28 @@
+export enum SyntaxTokenType {
+  TK_EXPORT_SYS_SYM,
+  TK_DEFINE_STR,
+  TK_GLBL_VAR,
+  TK_CLASS,
+  TK_INTERNAL_TYPE,
+  TK_FUN,
+  TK_KEYWORD,
+  TK_ASM_KEYWORD,
+  TK_OPCODE,
+  TK_REG,
+  TK_COMMENT,
+  TK_STRING,
+  TK_UNKNOWN_SYMBOL,
+}
+
+export const KeywordNameToTokenType: Record<string, SyntaxTokenType> = {
+  EXPORT_SYS_SYM: SyntaxTokenType.TK_EXPORT_SYS_SYM,
+  DEFINE_STR: SyntaxTokenType.TK_DEFINE_STR,
+  GLBL_VAR: SyntaxTokenType.TK_GLBL_VAR,
+  CLASS: SyntaxTokenType.TK_CLASS,
+  INTERNAL_TYPE: SyntaxTokenType.TK_INTERNAL_TYPE,
+  FUN: SyntaxTokenType.TK_FUN,
+  KEYWORD: SyntaxTokenType.TK_KEYWORD,
+  ASM_KEYWORD: SyntaxTokenType.TK_ASM_KEYWORD,
+  OPCODE: SyntaxTokenType.TK_OPCODE,
+  REG: SyntaxTokenType.TK_REG,
+}
