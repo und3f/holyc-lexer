@@ -60,6 +60,14 @@ describe('SyntaxLexer', () => {
   })
 
   it('should tokenize C++ style comments', () => {
+    const code = '/**/\n'
+
+    expect(new SyntaxLexer(code).lex()).toEqual([
+      { token: SyntaxTokenType.TK_COMMENT, start: 0, end: 4 },
+    ])
+  })
+
+  it('should tokenize long C++ style comments', () => {
     const code = '/* C++ style\n * multiline\n * comment */\n'
 
     expect(new SyntaxLexer(code).lex()).toEqual([
