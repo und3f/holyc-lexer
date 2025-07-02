@@ -26,4 +26,3 @@ the token (excluding end position, similar to `substring` format).
 ### Online HolyC Editor
 
 [TempleOS Cloud HolyC Playground](https://templeos.zasenko.name/cloud/playground/)
-

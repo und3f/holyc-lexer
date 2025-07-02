@@ -1,9 +1,11 @@
 import { SyntaxTokenType } from './const'
 
-export type Token<TT> = {
+export interface Token<TT> {
   token: TT
   start: number
   end: number
 }
 
-export type SyntaxToken = Token<SyntaxTokenType>
+export interface SyntaxToken extends Token<SyntaxTokenType> {
+  depth?: number
+}

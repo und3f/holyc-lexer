@@ -12,6 +12,10 @@ export enum SyntaxTokenType {
   TK_COMMENT,
   TK_STRING,
   TK_UNKNOWN_SYMBOL,
+  TK_PARENTHESIS_OPEN,
+  TK_PARENTHESIS_CLOSE,
+  TK_BRACE_OPEN,
+  TK_BRACE_CLOSE,
 }
 
 export const KeywordNameToTokenType: Record<string, SyntaxTokenType> = {

@@ -15,16 +15,24 @@ const SYM_BACK_SLASH = '\\'.charCodeAt(0)
 const SYM_SLASH = '/'.charCodeAt(0)
 const SYM_NEWLINE = '\n'.charCodeAt(0)
 const SYM_ASTERISK = '*'.charCodeAt(0)
+const SYM_PARENTHESIS_OPEN = '('.charCodeAt(0)
+const SYM_PARENTHESIS_CLOSE = ')'.charCodeAt(0)
+const SYM_BRACE_OPEN = '{'.charCodeAt(0)
+const SYM_BRACE_CLOSE = '}'.charCodeAt(0)
 
 export class SyntaxLexer {
   private _code: string
   private _pos: number
   private _tokens: SyntaxToken[]
+  private _depth_parenthesis: number
+  private _depth_brace: number
 
   constructor(code: string) {
     this._code = code
     this._pos = 0
     this._tokens = []
+    this._depth_parenthesis = 0
+    this._depth_brace = 0
   }
 
   lex(): SyntaxToken[] {
@@ -46,6 +54,30 @@ export class SyntaxLexer {
             break
           case SYM_SLASH:
             this.parseSlash()
+            break
+          case SYM_PARENTHESIS_OPEN:
+            this.addSingleCharToken(
+              SyntaxTokenType.TK_PARENTHESIS_OPEN,
+              this._depth_parenthesis++
+            )
+            break
+          case SYM_PARENTHESIS_CLOSE:
+            this.addSingleCharToken(
+              SyntaxTokenType.TK_PARENTHESIS_CLOSE,
+              --this._depth_parenthesis
+            )
+            break
+          case SYM_BRACE_OPEN:
+            this.addSingleCharToken(
+              SyntaxTokenType.TK_BRACE_OPEN,
+              this._depth_brace++
+            )
+            break
+          case SYM_BRACE_CLOSE:
+            this.addSingleCharToken(
+              SyntaxTokenType.TK_BRACE_CLOSE,
+              --this._depth_brace
+            )
             break
           default:
             this.next()
@@ -83,6 +115,18 @@ export class SyntaxLexer {
 
   getPos(): number {
     return this._pos
+  }
+
+  private addSingleCharToken(token: SyntaxTokenType, depth?: number) {
+    const start = this.getPos()
+    this.next()
+    const end = this.getPos()
+    this._tokens.push({
+      token,
+      start,
+      end,
+      depth,
+    })
   }
 
   private parseIdent() {

@@ -7,6 +7,18 @@ describe('SyntaxLexer', () => {
     expect(new SyntaxLexer(code).lex()).toEqual([
       { token: SyntaxTokenType.TK_CLASS, start: 0, end: 3 },
       { token: SyntaxTokenType.TK_FUN, start: 15, end: 22 },
+      {
+        token: SyntaxTokenType.TK_PARENTHESIS_OPEN,
+        start: 22,
+        end: 23,
+        depth: 0,
+      },
+      {
+        token: SyntaxTokenType.TK_PARENTHESIS_CLOSE,
+        start: 23,
+        end: 24,
+        depth: 0,
+      },
     ])
   })
 
@@ -72,6 +84,44 @@ describe('SyntaxLexer', () => {
 
     expect(new SyntaxLexer(code).lex()).toEqual([
       { token: SyntaxTokenType.TK_COMMENT, start: 0, end: code.length - 1 },
+    ])
+  })
+
+  it('should tokenize braces and parentheses correctly', () => {
+    const code = '{a(b())}'
+
+    expect(new SyntaxLexer(code).lex()).toEqual([
+      { token: SyntaxTokenType.TK_BRACE_OPEN, start: 0, end: 1, depth: 0 },
+      {
+        token: SyntaxTokenType.TK_PARENTHESIS_OPEN,
+        start: 2,
+        end: 3,
+        depth: 0,
+      },
+      {
+        token: SyntaxTokenType.TK_PARENTHESIS_OPEN,
+        start: 4,
+        end: 5,
+        depth: 1,
+      },
+      {
+        token: SyntaxTokenType.TK_PARENTHESIS_CLOSE,
+        start: 5,
+        end: 6,
+        depth: 1,
+      },
+      {
+        token: SyntaxTokenType.TK_PARENTHESIS_CLOSE,
+        start: 6,
+        end: 7,
+        depth: 0,
+      },
+      {
+        token: SyntaxTokenType.TK_BRACE_CLOSE,
+        start: 7,
+        end: 8,
+        depth: 0,
+      },
     ])
   })
 })
