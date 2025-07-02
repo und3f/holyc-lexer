@@ -1,6 +1,6 @@
 {
   "name": "holyc-lexer",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "HolyC Syntax Highlight Lexer",
   "homepage": "https://github.com/und3f/holyc-lexer",
   "main": "dist/index.js",
